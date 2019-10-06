@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.soterocra.crud.activities.MainActivity">
+    <item
+        android:id="@+id/action_cadastro_de_usuario"
+        android:icon="@drawable/ic_action_cadastro_de_usuario"
+        android:title="Cadastro de Usuário"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_alteracao_usuario"
+        android:title="Alteração de usuário" />
+    <item
+        android:id="@+id/action_excluir_usuario"
+        android:icon="@drawable/ic_action_excluir_usuario"
+        android:title="Excluir usuário"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_lista_usuarios"
+        android:icon="@drawable/ic_action_lista_usuarios"
+        android:title="Todos"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_login"
+        android:icon="@drawable/ic_action_login"
+        android:title="Login"
+        app:showAsAction="always" />
+</menu>
