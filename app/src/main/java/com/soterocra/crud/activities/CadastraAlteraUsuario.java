@@ -2,6 +2,8 @@ package com.soterocra.crud.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +31,7 @@ public class CadastraAlteraUsuario extends AppCompatActivity {
 
     private CadastraAlteraEnum cadastraAlteraEnum;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +39,20 @@ public class CadastraAlteraUsuario extends AppCompatActivity {
 
         setup();
 
+        SharedPreferences sp = getSharedPreferences("dados", MODE_PRIVATE);
+
         cadastraAlteraEnum = (CadastraAlteraEnum) getIntent().getSerializableExtra(MainActivity.CADASTRA_ALTERA);
 
         Button btnAlteraCadastra = (Button) findViewById(R.id.btn_altera_cadastra);
 
         if (cadastraAlteraEnum == CadastraAlteraEnum.ALTERACAO) {
+
+            String token = sp.getString("token", null);
+
+            if (token == null) {
+                Toast.makeText(this, "Primeiro faça o login para tentar alterar o seu ou outro usuário.", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this, MainActivity.class));
+            }
 
             setTitle("Alteração de Dados");
 

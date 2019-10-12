@@ -13,6 +13,10 @@ import android.widget.Toast;
 import com.soterocra.crud.R;
 import com.soterocra.crud.dto.DtoLogin;
 import com.soterocra.crud.services.RetrofitService;
+import com.soterocra.crud.util.SharedPreferencesUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,10 +45,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<DtoLogin> call, Response<DtoLogin> response) {
                 Toast.makeText(LoginActivity.this, "Usuário logado", Toast.LENGTH_SHORT).show();
 
-                SharedPreferences sp = getSharedPreferences("dados", 0);
+                SharedPreferences sp = SharedPreferencesUtil.get(getSharedPreferences("dados", 0));
+
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putString("token", response.body().getToken());
-                editor.apply();
+                Map<String, String> data = new HashMap<>();
+
+                data.put("token", response.body().getToken());
+                SharedPreferencesUtil.write(sp, editor, data);
 
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
