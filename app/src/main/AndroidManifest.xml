@@ -21,13 +21,6 @@
                 android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.AlteracaoUsuarioActivity"
-            android:label="Alterar usuário">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
-        <activity
             android:name=".activities.ListaUsuariosActivity"
             android:label="Lista usuários">
             <meta-data
@@ -42,7 +35,7 @@
                 android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.CadastroDeUsuarioActivity"
+            android:name=".activities.CadastraAlteraUsuario"
             android:label="Cadastro de usuário">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
