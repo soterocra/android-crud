@@ -23,7 +23,7 @@ public class CadastroDeUsuarioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro_de_usuario);
+        setContentView(R.layout.activity_altera_cadastra_usuario);
     }
 
     public void cadastrar(View view) {

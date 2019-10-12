@@ -11,6 +11,8 @@ public class AlteracaoUsuarioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alteracao_usuario);
+        setContentView(R.layout.activity_altera_cadastra_usuario);
     }
+
+
 }

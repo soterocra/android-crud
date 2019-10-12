@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">crud</string>
+    <string name="app_name">App de CRUD</string>
     <string name="action_settings">Settings</string>
 </resources>
