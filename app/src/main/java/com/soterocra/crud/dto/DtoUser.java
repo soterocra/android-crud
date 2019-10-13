@@ -1,7 +1,5 @@
 package com.soterocra.crud.dto;
 
-import android.os.Parcelable;
-
 import java.io.Serializable;
 
 public class DtoUser implements Serializable {
