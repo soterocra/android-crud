@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.soterocra.crud.R;
 import com.soterocra.crud.activities.enums.CadastraAlteraEnum;
 import com.soterocra.crud.dto.DtoUser;
@@ -23,6 +24,7 @@ import retrofit2.Response;
 public class CadastraAlteraUsuario extends AppCompatActivity {
 
     private static final String TAG = "com.soterocra.crud.activities.CadastraAlteraUsuario";
+    public static final String CADASTRA_ALTERA = "com.soterocra.crud.activities.CADASTRA_ALTERA";
 
     private EditText editTextNome;
     private EditText editTextEmail;
@@ -30,6 +32,9 @@ public class CadastraAlteraUsuario extends AppCompatActivity {
     private EditText editTextTelefone;
 
     private CadastraAlteraEnum cadastraAlteraEnum;
+
+    private String token;
+    DtoUser user;
 
 
     @Override
@@ -41,13 +46,13 @@ public class CadastraAlteraUsuario extends AppCompatActivity {
 
         SharedPreferences sp = getSharedPreferences("dados", MODE_PRIVATE);
 
-        cadastraAlteraEnum = (CadastraAlteraEnum) getIntent().getSerializableExtra(MainActivity.CADASTRA_ALTERA);
+        cadastraAlteraEnum = (CadastraAlteraEnum) getIntent().getSerializableExtra(CADASTRA_ALTERA);
 
         Button btnAlteraCadastra = (Button) findViewById(R.id.btn_altera_cadastra);
 
-        if (cadastraAlteraEnum == CadastraAlteraEnum.ALTERACAO) {
+        if (cadastraAlteraEnum == CadastraAlteraEnum.ALTERACAO_USUARIO_ATUAL || cadastraAlteraEnum == CadastraAlteraEnum.ALTERACAO) {
 
-            String token = sp.getString("token", null);
+            token = sp.getString("token", null);
 
             if (token == null) {
                 Toast.makeText(this, "Primeiro faça o login para tentar alterar o seu ou outro usuário.", Toast.LENGTH_LONG).show();
@@ -63,6 +68,18 @@ public class CadastraAlteraUsuario extends AppCompatActivity {
                     alterar(view);
                 }
             });
+
+            if (cadastraAlteraEnum == CadastraAlteraEnum.ALTERACAO_USUARIO_ATUAL) {
+                user = new Gson().fromJson(sp.getString("loggedUser", null), DtoUser.class);
+            } else {
+                user = (DtoUser) getIntent().getSerializableExtra("user");
+            }
+
+            editTextNome.setText(user.getName());
+            editTextEmail.setText(user.getEmail());
+            editTextSenha.setText(user.getPassword());
+            editTextTelefone.setText(user.getPhone());
+
         } else if (cadastraAlteraEnum == CadastraAlteraEnum.CADASTRO) {
 
             setTitle("Cadastro de Usuário");
@@ -114,10 +131,14 @@ public class CadastraAlteraUsuario extends AppCompatActivity {
 
         DtoUser dtoUser = new DtoUser(email, nome, senha, telefone);
 
-        RetrofitService.getServico(this).atualizaUsuario("123", dtoUser).enqueue(new Callback<DtoUser>() {
+        RetrofitService.getServico(this).atualizaUsuario(user.getId(), "Bearer " + token, dtoUser).enqueue(new Callback<DtoUser>() {
             @Override
             public void onResponse(Call<DtoUser> call, Response<DtoUser> response) {
-                Toast.makeText(CadastraAlteraUsuario.this, "Usuário cadastrado com ID: " + response.body().getId(), Toast.LENGTH_LONG).show();
+                if (response.isSuccessful()) {
+                    Toast.makeText(CadastraAlteraUsuario.this, "Usuário " + response.body().getName() + " alterado.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(CadastraAlteraUsuario.this, response.body().toString(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

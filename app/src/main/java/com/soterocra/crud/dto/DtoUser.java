@@ -1,6 +1,10 @@
 package com.soterocra.crud.dto;
 
-public class DtoUser {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class DtoUser implements Serializable {
 
     private String email;
     private Integer id;
@@ -14,6 +18,14 @@ public class DtoUser {
         this.password = password;
         this.phone = phone;
     }
+
+//    public DtoUser(Integer id, String email, String name, String password, String phone) {
+//        this.id = id;
+//        this.email = email;
+//        this.name = name;
+//        this.password = password;
+//        this.phone = phone;
+//    }
 
     public String getEmail() {
         return email;

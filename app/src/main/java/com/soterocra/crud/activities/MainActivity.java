@@ -6,25 +6,27 @@ import android.os.Bundle;
 
 import com.soterocra.crud.R;
 import com.soterocra.crud.activities.enums.CadastraAlteraEnum;
-import com.soterocra.crud.util.SharedPreferencesUtil;
+import com.soterocra.crud.utils.SharedPreferencesUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import static com.soterocra.crud.activities.CadastraAlteraUsuario.CADASTRA_ALTERA;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "com.soterocra.crud.activities.MainActivity";
-    public static final String CADASTRA_ALTERA = "com.soterocra.crud.activities.CADASTRA_ALTERA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sp = SharedPreferencesUtil.get(getSharedPreferences("dados", MODE_PRIVATE));
+        SharedPreferences sp = SharedPreferencesUtils.get(getSharedPreferences("dados", MODE_PRIVATE));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_alteracao_usuario:
                 intent = new Intent(this, CadastraAlteraUsuario.class);
-                intent.putExtra(CADASTRA_ALTERA, CadastraAlteraEnum.ALTERACAO);
+                intent.putExtra(CADASTRA_ALTERA, CadastraAlteraEnum.ALTERACAO_USUARIO_ATUAL);
                 startActivity(intent);
                 return true;
             case R.id.action_cadastro_de_usuario:

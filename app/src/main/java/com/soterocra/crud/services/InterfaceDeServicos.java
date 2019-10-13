@@ -11,6 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface InterfaceDeServicos {
 
@@ -23,7 +24,7 @@ public interface InterfaceDeServicos {
     @GET("/users")
     Call<List<DtoUser>> todosUsuarios(@Header("Authorization") String authorization);
 
-    @PUT("/users")
-    Call<DtoUser> atualizaUsuario(@Header("Authorization") String authorization, @Body DtoUser dtoUser);
+    @PUT("/users/{id}")
+    Call<DtoUser> atualizaUsuario(@Path("id") Integer userId, @Header("Authorization") String authorization, @Body DtoUser dtoUser);
 
 }

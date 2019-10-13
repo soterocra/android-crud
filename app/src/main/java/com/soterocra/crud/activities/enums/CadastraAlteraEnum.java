@@ -7,6 +7,8 @@ import java.io.Serializable;
 public enum CadastraAlteraEnum implements Serializable {
 
     CADASTRO,
+    ALTERACAO_USUARIO_ATUAL,
     ALTERACAO
+
 
 }

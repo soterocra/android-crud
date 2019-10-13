@@ -1,7 +1,5 @@
 package com.soterocra.crud.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,10 +8,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.gson.Gson;
 import com.soterocra.crud.R;
 import com.soterocra.crud.dto.DtoLogin;
 import com.soterocra.crud.services.RetrofitService;
-import com.soterocra.crud.util.SharedPreferencesUtil;
+import com.soterocra.crud.utils.SharedPreferencesUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,8 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
+    private String token;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +48,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<DtoLogin> call, Response<DtoLogin> response) {
                 Toast.makeText(LoginActivity.this, "Usuário logado", Toast.LENGTH_SHORT).show();
 
-                SharedPreferences sp = SharedPreferencesUtil.get(getSharedPreferences("dados", 0));
+                SharedPreferences sp = SharedPreferencesUtils.get(getSharedPreferences("dados", 0));
 
                 SharedPreferences.Editor editor = sp.edit();
                 Map<String, String> data = new HashMap<>();
 
-                data.put("token", response.body().getToken());
-                SharedPreferencesUtil.write(sp, editor, data);
+                token = response.body().getToken();
+
+                data.put("token", token);
+                data.put("loggedUser", new Gson().toJson(response.body()));
+                SharedPreferencesUtils.write(sp, editor, data);
 
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
@@ -62,4 +68,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 }

@@ -1,11 +1,11 @@
-package com.soterocra.crud.util;
+package com.soterocra.crud.utils;
 
 import android.content.SharedPreferences;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class SharedPreferencesUtil {
+public class SharedPreferencesUtils {
 
     public static void write(SharedPreferences sp, SharedPreferences.Editor editor, Map<String, String> data) {
 
